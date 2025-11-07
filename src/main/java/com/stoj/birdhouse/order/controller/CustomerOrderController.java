@@ -26,42 +26,42 @@ public class CustomerOrderController {
     }
 
     // get all customer orders
-    @GetMapping("/customer-orders")
+    @GetMapping("/orders")
     public ResponseEntity<Page<CustomerOrderResponseDto>> getAllCustomerOrders(@ParameterObject @PageableDefault(size = 20) Pageable pageable) {
         Page<CustomerOrderResponseDto> orders = customerOrderService.getAllCustomerOrders(pageable);
         return ResponseEntity.ok(orders);
     }
 
     // get customer order by id
-    @GetMapping("/customer-orders/{id}")
+    @GetMapping("/orders/{id}")
     public ResponseEntity<CustomerOrderResponseDto> getCustomerOrder(@PathVariable Long id) {
         CustomerOrderResponseDto order = customerOrderService.getCustomerOrder(id);
         return ResponseEntity.ok(order);
     }
 
     // get customer orders by customer id
-    @GetMapping("/customer-orders/customer/{id}")
+    @GetMapping("/orders/customer/{id}")
     public ResponseEntity<Page<CustomerOrderResponseDto>> getCustomerOrderByCustomerId(@PathVariable Long id, @ParameterObject @PageableDefault(size = 20) Pageable pageable) {
         Page<CustomerOrderResponseDto> orders = customerOrderService.getCustomerOrderByCustomerId(id, pageable);
         return ResponseEntity.ok(orders);
     }
 
     // create customer order
-    @PostMapping("/customer-orders/customer/{customerId}")
+    @PostMapping("/orders/customer/{customerId}")
     public ResponseEntity<CustomerOrderResponseDto> createCustomerOrder(@PathVariable Long customerId, @Valid @RequestBody CustomerOrderCreateDto createDto) {
         CustomerOrderResponseDto order = customerOrderService.createCustomerOrder(customerId, createDto);
         return ResponseEntity.created(URI.create(String.format("/customer-orders/%d", order.getId()))).body(order);
     }
 
     // update customer order by id
-    @PatchMapping("/customer-orders/{id}")
+    @PatchMapping("/orders/{id}")
     public ResponseEntity<CustomerOrderResponseDto> updateCustomerOrder(@PathVariable Long id, @Valid @RequestBody CustomerOrderUpdateDto updateDto) {
         CustomerOrderResponseDto order = customerOrderService.updateCustomerOrder(id, updateDto);
         return ResponseEntity.ok(order);
     }
 
     // delete customer order by id
-    @DeleteMapping("/customer-orders/{id}")
+    @DeleteMapping("/orders/{id}")
     public ResponseEntity<Void> deleteCustomerOrder(@PathVariable Long id) {
         customerOrderService.deleteCustomerOrder(id);
         return ResponseEntity.noContent().build();

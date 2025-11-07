@@ -41,7 +41,7 @@ public class ShipmentController {
     }
 
     // create shipment
-    @PostMapping("/orders/{orderId}/shippers/{shipperId}")
+    @PostMapping("/shipments/orders/{orderId}/shippers/{shipperId}")
     public ResponseEntity<ShipmentDetailDto> createShipment(@PathVariable Long orderId, @PathVariable Long shipperId, @Valid @RequestBody ShipmentCreateDto createDto) {
         var shipment = shipmentService.createShipment(orderId, shipperId, createDto);
         return ResponseEntity.created(URI.create(String.format("/shipments/%d", shipment.getId()))).body(shipment);
